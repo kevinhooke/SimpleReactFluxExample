@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AppDispatcher from '../dispatcher/Dispatcher';
 
 class ButtonComponent extends Component {
 
@@ -9,10 +10,21 @@ class ButtonComponent extends Component {
         };
     }
 
+
+    handleOnclick() {
+        console.log("ButtonComponent is creating Action for Dispatcher...");
+
+        AppDispatcher.dispatch({
+            actionName: 'BUTTON_CLICK',
+            newItem: { value: 'example value' }
+        });
+
+    }
+
     render() {
         return (
             <div className="button">
-                <button>{this.state.label}</button>
+                <button onClick={this.handleOnclick}>{this.state.label}</button>
             </div>
         );
     }
