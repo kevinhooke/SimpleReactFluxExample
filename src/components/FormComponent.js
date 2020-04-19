@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import AppDispatcher from '../dispatcher/Dispatcher';
 
-class ButtonComponent extends Component {
+class FormComponent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            label : this.props.label
+            label : this.props.label,
+            name: ""
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleOnclick = this.handleOnclick.bind(this);
     }
 
 
@@ -16,18 +20,25 @@ class ButtonComponent extends Component {
 
         AppDispatcher.dispatch({
             actionName: 'BUTTON_CLICK',
-            newItem: { value: 'example value' }
+            newItem: { value: this.state.name }
         });
 
+    }
+
+    handleChange(event){
+        this.setState({
+            name : event.target.value
+        });
     }
 
     render() {
         return (
             <div className="button">
+                <input type="text" value={this.state.name} onChange={this.handleChange}/>
                 <button onClick={this.handleOnclick}>{this.state.label}</button>
             </div>
         );
     }
 }
 
-export default ButtonComponent;
+export default FormComponent;
